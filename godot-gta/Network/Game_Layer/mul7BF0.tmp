@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgvdttvylviru"]
+
+[ext_resource type="Script" path="res://Network/Game_Layer/multiplayer_manager.gd" id="1_5us03"]
+
+[node name="MultiplayerManager" type="Node"]
+script = ExtResource("1_5us03")

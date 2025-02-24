@@ -1,0 +1,94 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnjwj2fhx8mb"]
+
+[ext_resource type="Texture2D" uid="uid://bryprfr5cbybo" path="res://assets/UI/menu.jpg" id="1_7ynna"]
+[ext_resource type="Script" path="res://Scenes/Menus/main_menu.gd" id="1_i828n"]
+
+[node name="Main_Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i828n")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Main_Menu_Backround" type="TextureRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -37.0
+offset_bottom = 38.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_7ynna")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="Menu" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HostGame" type="Button" parent="Menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.397
+anchor_right = 0.5
+anchor_bottom = 0.397
+offset_left = -42.0
+offset_top = -18.256
+offset_right = 52.0
+offset_bottom = 12.744
+grow_horizontal = 2
+grow_vertical = 2
+text = "Host Game"
+flat = true
+
+[node name="JoinGame" type="Button" parent="Menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.397
+anchor_right = 0.5
+anchor_bottom = 0.397
+offset_left = -45.0
+offset_top = 19.744
+offset_right = 49.0
+offset_bottom = 50.744
+grow_horizontal = 2
+grow_vertical = 2
+text = "Join Game"
+flat = true
+
+[node name="ExitGame" type="Button" parent="Menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.397
+anchor_right = 0.5
+anchor_bottom = 0.397
+offset_left = -43.0
+offset_top = 63.744
+offset_right = 51.0
+offset_bottom = 94.744
+grow_horizontal = 2
+grow_vertical = 2
+text = "Exit"
+flat = true
+
+[connection signal="pressed" from="Menu/HostGame" to="." method="host_game"]
+[connection signal="pressed" from="Menu/JoinGame" to="." method="join_game"]
+[connection signal="pressed" from="Menu/ExitGame" to="." method="exit_game"]

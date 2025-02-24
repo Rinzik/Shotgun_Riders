@@ -1,0 +1,79 @@
+[gd_scene load_steps=8 format=3 uid="uid://ctj7wi5gv0h04"]
+
+[ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_5ccqq"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_xmpj5"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_l1kjo"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cgfwe"]
+font_size = 40
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_2kiee"]
+radius = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v7wbd"]
+albedo_color = Color(3.85046e-07, 0.712038, 0.869677, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_wu2wy"]
+material = SubResource("StandardMaterial3D_v7wbd")
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_5ccqq")
+
+[node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_xmpj5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_l1kjo")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.91573, 0.074033)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera3D"]
+
+[node name="vehicle_indicator" type="Label" parent="Camera3D/CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Drive - F"
+label_settings = SubResource("LabelSettings_cgfwe")
+
+[node name="Mesh Look" type="Node3D" parent="."]
+visible = false
+
+[node name="Vehicle_Detector" type="Area3D" parent="."]
+visible = false
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Vehicle_Detector"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_2kiee")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_wu2wy")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.34769, 1.29557)
+size = Vector3(0.1, 0.1, 1)
+
+[connection signal="area_shape_entered" from="Vehicle_Detector" to="." method="_on_Vehicle_Detector_area_shape_entered"]
+[connection signal="area_shape_exited" from="Vehicle_Detector" to="." method="_on_Vehicle_Detector_area_shape_exited"]

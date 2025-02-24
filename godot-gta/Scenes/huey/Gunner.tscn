@@ -1,0 +1,69 @@
+[gd_scene load_steps=4 format=3 uid="uid://bg0ibf87rm7ct"]
+
+[ext_resource type="Script" path="res://Scenes/huey/gunner.gd" id="1_u0q81"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_eqgl8"]
+properties/0/path = NodePath(".:rotation")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:rotation_edit_mode")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o6rnu"]
+size = Vector3(2, 2, 2)
+
+[node name="Gunner" type="Node3D"]
+process_priority = 2
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_eqgl8")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("1_u0q81")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_o6rnu")
+
+[node name="Player Exit" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.01716, -0.00115269, -0.106828)
+
+[node name="Hud" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="speed" type="Label" parent="Hud"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -23.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 50
+metadata/_edit_use_anchors_ = true
+
+[node name="hover" type="Label" parent="Hud"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -69.0
+offset_right = 40.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 50
+metadata/_edit_use_anchors_ = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Camera3D"]
+transform = Transform3D(-0.0326668, 0, 0.999466, 0, 1, 0, -0.999466, 0, -0.0326668, -0.0264129, -0.21253, -0.808123)
+size = Vector3(1, 0.1, 0.1)
