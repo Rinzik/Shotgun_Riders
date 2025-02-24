@@ -8,31 +8,34 @@
 [ext_resource type="Script" path="res://Scenes/huey/pilot.gd" id="5_imeel"]
 [ext_resource type="PackedScene" uid="uid://d04drxdwxb35q" path="res://Scenes/huey/huey test/huey_w_animation_1.blend" id="7_mbf16"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_fyb7a"]
-size = Vector3(4.5, 3, 3)
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bj2lu"]
-properties/0/path = NodePath(".:position")
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7halu"]
+properties/0/path = NodePath("Gunner 1:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
-properties/1/path = NodePath(".:rotation")
+properties/1/path = NodePath("Gunner 1:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
-properties/2/path = NodePath("AnimationPlayer:current_animation")
+properties/2/path = NodePath(".:position")
 properties/2/spawn = true
 properties/2/replication_mode = 1
-properties/3/path = NodePath("Gunner2:position")
+properties/3/path = NodePath(".:rotation")
 properties/3/spawn = true
 properties/3/replication_mode = 1
-properties/4/path = NodePath("Gunner2:rotation")
+properties/4/path = NodePath("Gunner 1/Camera3D:position")
 properties/4/spawn = true
 properties/4/replication_mode = 1
-properties/5/path = NodePath("Pilot:position")
+properties/5/path = NodePath("Gunner 1/Camera3D:rotation")
 properties/5/spawn = true
 properties/5/replication_mode = 1
-properties/6/path = NodePath("Pilot:rotation")
+properties/6/path = NodePath("Gunner 1/Camera3D/CSGBox3D:rotation")
 properties/6/spawn = true
 properties/6/replication_mode = 1
+properties/7/path = NodePath("Gunner 1/Camera3D/CSGBox3D:position")
+properties/7/spawn = true
+properties/7/replication_mode = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fyb7a"]
+size = Vector3(4.5, 3, 3)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mkqet"]
 resource_name = "m_2565ce9a-a9f8-534b-0f9d-a77c913de3a1"
@@ -216,6 +219,10 @@ center_of_mass_mode = 1
 center_of_mass = Vector3(0, -0.1, 0)
 script = ExtResource("1_lwqia")
 
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_7halu")
+visibility_update_mode = 1
+
 [node name="Pilot" type="Area3D" parent="."]
 collision_layer = 16
 collision_mask = 16
@@ -224,10 +231,6 @@ script = ExtResource("5_imeel")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pilot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.43062, -0.996318)
 shape = SubResource("BoxShape3D_fyb7a")
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_bj2lu")
-visibility_update_mode = 1
 
 [node name="Hud" type="CanvasLayer" parent="."]
 layer = 2
@@ -297,17 +300,8 @@ libraries = {
 "": SubResource("AnimationLibrary_jx17j")
 }
 
-[node name="Gunner" parent="." instance=ExtResource("3_hmev1")]
-transform = Transform3D(-0.00417128, 0, -0.999991, 0, 1, 0, 0.999991, 0, -0.00417128, 1.15005, 1.68675, 3.70965)
-
-[node name="Gunner4" parent="." instance=ExtResource("3_hmev1")]
-transform = Transform3D(-0.00417128, 0, -0.999991, 0, 1, 0, 0.999991, 0, -0.00417128, 1.37008, 1.68675, 1.49472)
-
-[node name="Gunner2" parent="." instance=ExtResource("3_hmev1")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.905664, 1.74397, 3.68716)
-
-[node name="Gunner3" parent="." instance=ExtResource("3_hmev1")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.4945, 1.74397, 1.74839)
-
 [node name="huey_w_animation_1" parent="." instance=ExtResource("7_mbf16")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 2.50665)
+
+[node name="Gunner" parent="." instance=ExtResource("3_hmev1")]
+transform = Transform3D(-0.0164577, 0, 0.999865, 0, 1, 0, -0.999865, 0, -0.0164577, -1.03274, 1.40792, 2.06432)

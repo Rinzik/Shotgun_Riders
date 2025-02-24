@@ -23,21 +23,18 @@ var current_player_name
 
 func _ready():
 	camera.current = false
-	
-	
+
+
 func toggle_player():
 	has_player = !has_player
 	camera.current = has_player
 	hud.visible = has_player
-	
-@rpc("any_peer")
+
+
 func set_player_authority(current_player_name):
-	if has_player:
 		$"..".set_multiplayer_authority(str(current_player_name).to_int())
 		set_multiplayer_authority(str(current_player_name).to_int())
-		$"../MultiplayerSynchronizer".set_multiplayer_authority(str(current_player_name).to_int())
 		print("heli pilot multiplayer athority ", current_player_name)
-
 
 func _input(event: InputEvent) -> void:
 	if not has_player:
@@ -47,7 +44,7 @@ func _input(event: InputEvent) -> void:
 		yaw_rotation_accumulated += event.relative.x * look_sensitivity
 		pitch_rotation_accumulated += event.relative.y * -look_sensitivity
 
-
+@rpc("any_peer")
 func _physics_process(delta):
 	if not has_player:
 		animations.stop()  # Stop animations if no player is in the helicopter

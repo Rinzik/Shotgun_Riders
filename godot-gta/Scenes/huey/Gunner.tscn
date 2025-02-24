@@ -2,25 +2,31 @@
 
 [ext_resource type="Script" path="res://Scenes/huey/gunner.gd" id="1_u0q81"]
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_eqgl8"]
-properties/0/path = NodePath(".:rotation")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath(".:position")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-properties/2/path = NodePath(".:rotation_edit_mode")
-properties/2/spawn = true
-properties/2/replication_mode = 1
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_o6rnu"]
 size = Vector3(2, 2, 2)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_mwo2h"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Camera3D:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("Camera3D:position")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("Camera3D/CSGBox3D:position")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("Camera3D/CSGBox3D:rotation")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+
 [node name="Gunner" type="Node3D"]
 process_priority = 2
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_eqgl8")
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 16
@@ -67,3 +73,6 @@ metadata/_edit_use_anchors_ = true
 [node name="CSGBox3D" type="CSGBox3D" parent="Camera3D"]
 transform = Transform3D(-0.0326668, 0, 0.999466, 0, 1, 0, -0.999466, 0, -0.0326668, -0.0264129, -0.21253, -0.808123)
 size = Vector3(1, 0.1, 0.1)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_mwo2h")

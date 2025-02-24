@@ -11,7 +11,7 @@ class_name Player extends CharacterBody3D
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var driving_area: Area3D
 var detected_area: Area3D
-
+var player_id: int
 
 @export var look_sensitivity: float = 0.1  # Mouse look sensitivity
 @export var move_speed: float = 5.0        # Movement speed
@@ -22,7 +22,7 @@ var rotation_x: float = 0.0  # To track up/down camera rotation
 
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
-	
+	player_id = str(name).to_int()
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	if multiplayer.get_unique_id() == str($".".name).to_int():
@@ -56,7 +56,7 @@ func _physics_process(delta: float):
 			detected_area = null
 			camera.current = false
 			driving_area.toggle_player()
-			driving_area.set_player_authority(name)
+			#driving_area.set_player_authority(name)
 
 			$Camera3D/CanvasLayer/vehicle_indicator.hide()
 			
